@@ -523,3 +523,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Bot and others Secrets
+/secrets.yml
