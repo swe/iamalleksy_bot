@@ -13,7 +13,7 @@ from buttonsfunctions import buttonone, buttontwo
 
 
 # Put the token that you received from BotFather in the quotes
-bot = Bot(token="6422638965:AAEMreLpOEo7ko8U-UHrm5iGY4L8Sfj0168")
+bot = Bot(token="")
 
 # Initializing the dispatcher object
 dp = Dispatcher(bot)
