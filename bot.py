@@ -6,41 +6,51 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Text
 
 # Importing required libraries
+import telegram
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardMarkup
 from buttonsfunctions import buttonone, buttontwo
 
+
 # Put the token that you received from BotFather in the quotes
-bot = Bot(token="***")
+bot = Bot(token="6422638965:AAEMreLpOEo7ko8U-UHrm5iGY4L8Sfj0168")
 
 # Initializing the dispatcher object
 dp = Dispatcher(bot)
 
-# Creating the reply keyboard
+# Creating the reply keyboards
 keyboard_reply = ReplyKeyboardMarkup(
     resize_keyboard=True, one_time_keyboard=True).add("🌍 Add new location", "💰 Check your assets")
+locationkeyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add("📍 Send location", "Back")
 
 # Handling the /start and /help commands
-@dp.message_handler(commands=['start', 'help'])
+@dp.message_handler(commands=['start'])
 async def welcome(message: types.Message):
     # Sending a greeting message that includes the reply keyboard
-    await message.answer("Hello! how are you?", reply_markup=keyboard_reply)
+    greeting = message.from_user.first_name
+    await message.answer("👋🏻")
+    await asyncio.sleep(1.0)
+    await message.answer(f"Hello {greeting}! What would you like me to do for you today?", reply_markup=keyboard_reply)
 
 
-# Handling all other messages
+# Handling location button
+
 @dp.message_handler()
 async def check_rp(message: types.Message):
 
     if message.text == '🌍 Add new location':
         # Responding with a message for the first button
-        await message.reply("Hi! this is first reply keyboards button.")
-        buttonone()
+        await message.reply("It looks, like you're travelling! Isn't it great?")
+        await asyncio.sleep(1.0)
+        await message.answer("Just send me your current location, and I will add it to your map with visited places.",
+                             reply_markup=locationkeyboard)
 
-
+# Handling assets button
     elif message.text == '💰 Check your assets':
         # Responding with a message for the second button
-        await message.reply("Hi! this is second reply keyboards button.")
         buttontwo()
+        response = buttontwo()
+        await message.answer(response)
 
     else:
         # Responding with a message that includes the text of the user's message
