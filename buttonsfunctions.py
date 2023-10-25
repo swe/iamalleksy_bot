@@ -10,7 +10,7 @@ def buttontwo():
     try:
         response = requests.get('https://toncenter.com/api/v2/getAddressBalance?address=EQDnRzHz7T4X8zjso6CV0tuHNf42GrxCdlU78ijc6d6Y6AbO')
         response.raise_for_status()
-        # access JSOn content
+        # access JSON content
         jsonResponse = response.json()
         print("Entire JSON response")
         print(jsonResponse)
