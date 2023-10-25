@@ -22,7 +22,7 @@ dp = Dispatcher(bot)
 
 # Creating the reply keyboards
 
-intro_reply = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add("🌍 Add new location", "💰 Check your assets", "Rate new book", "Add project idea", "Update wishlist", "Rate new film/show")
+intro_reply = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add("🌍 Add new location", "💰 Check your assets", "📚 Rate new book", "💡 Add project idea", "🌟 Update wishlist", "🎥 Rate new film/show")
 
 
 locationkeyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add("📍 Send location", "Back")
