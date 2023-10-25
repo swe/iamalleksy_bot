@@ -20,8 +20,7 @@ bot = Bot(token="")
 dp = Dispatcher(bot)
 
 # Creating the reply keyboards
-keyboard_reply = ReplyKeyboardMarkup(
-    resize_keyboard=True, one_time_keyboard=True).add("🌍 Add new location", "💰 Check your assets")
+keyboard_reply = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add("🌍 Add new location", "💰 Check your assets")
 locationkeyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add("📍 Send location", "Back")
 
 # Handling the /start and /help commands
@@ -29,10 +28,8 @@ locationkeyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=T
 async def welcome(message: types.Message):
     # Sending a greeting message that includes the reply keyboard
     greeting = message.from_user.first_name
-    await message.answer("👋🏻")
     await asyncio.sleep(1.0)
     await message.answer(f"Hello {greeting}! What would you like me to do for you today?", reply_markup=keyboard_reply)
-
 
 # Handling location button
 
@@ -41,7 +38,7 @@ async def check_rp(message: types.Message):
 
     if message.text == '🌍 Add new location':
         # Responding with a message for the first button
-        await message.reply("It looks, like you're travelling! Isn't it great?")
+        await message.reply("It looks like you're travelling! Isn't it gorgeous?")
         await asyncio.sleep(1.0)
         await message.answer("Just send me your current location, and I will add it to your map with visited places.",
                              reply_markup=locationkeyboard)
