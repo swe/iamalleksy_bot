@@ -11,53 +11,42 @@ import aiogram.utils.markdown as fmt
 from aiogram.dispatcher.filters import Text
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardMarkup
-from buttonsfunctions import buttonone, buttontwo
-from startMenu import start
 
+# Additional functions of the bot
+#from buttonsfunctions import buttonone, buttontwo
+#from startMenu import start
 
 # Put the token that you received from BotFather in the quotes
-bot = Bot(token="")
+bot = Bot(token="6640404904:AAEg996r2gM_zSwzet1Syk7jPcIWkDyIDvg")
 
 # Initializing the dispatcher object
 dp = Dispatcher(bot)
 
-# Creating the reply keyboards
+#Initializing all required variables
+greeting = message.from_user.first_name
 
-intro_reply = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add("🌍 Add new location", "💰 Check your assets", "📚 Rate new book", "💡 Add project idea", "🌟 Update wishlist", "🎥 Rate new film/show")
+# Creating the intro keyboard
+introBtns = [
+    ["🎥 Rate new film/show"],
+    ["📚 Rate new book"],
+    ["💰 Check your assets"],
+    ["🌟 Update wishlist"],
+    ["🌍 Add new location"],
+    ["💡 Add project idea"]
+]
+intro_reply = ReplyKeyboardMarkup(introBtns, resize_keyboard=False, one_time_keyboard=True)
 
-
-locationkeyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add("📍 Send location", "Back")
-
-# Handling the /start and /help commands
+# Handling the /start
 @dp.message_handler(commands=['start'])
 async def welcome(message: types.Message):
     # Sending a greeting message that includes the reply keyboard
-    greeting = message.from_user.first_name
+    await message.answer(f"👋🏻")
     await asyncio.sleep(1.0)
-    await message.answer(f"Hello {greeting}! What would you like me to do for you today?")
+    await message.answer(f"Hello {greeting}! What would you like me to do for you today?", reply_markup=intro_reply)
 
-# Handling location button
 
-@dp.message_handler()
-async def check_rp(message: types.Message):
 
-    if message.text == '🌍 Add new location':
-        # Responding with a message for the first button
-        await message.reply("It looks like you're travelling! Isn't it gorgeous?")
-        await asyncio.sleep(1.0)
-        await message.answer("Just send me your current location, and I will add it to your map with visited places.",
-                             reply_markup=locationkeyboard)
 
-# Handling assets button
-    elif message.text == '💰 Check your assets':
-        # Responding with a message for the second button
-        buttontwo()
-        response = buttontwo()
-        await message.answer(response)
-
-    else:
-        # Responding with a message that includes the text of the user's message
-        await message.reply("I can not understand this command. Please, use /help to find what I can do.")
 
 # Starting the bot
 
