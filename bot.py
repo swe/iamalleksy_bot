@@ -12,6 +12,7 @@ from aiogram.dispatcher.filters import Text
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardMarkup
 from buttonsfunctions import buttonone, buttontwo
+from startMenu import start
 
 
 # Put the token that you received from BotFather in the quotes
@@ -33,7 +34,7 @@ async def welcome(message: types.Message):
     # Sending a greeting message that includes the reply keyboard
     greeting = message.from_user.first_name
     await asyncio.sleep(1.0)
-    await message.answer(f"Hello {greeting}! What would you like me to do for you today?", reply_markup=intro_reply)
+    await message.answer(f"Hello {greeting}! What would you like me to do for you today?")
 
 # Handling location button
 
