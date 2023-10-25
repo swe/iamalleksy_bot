@@ -5,6 +5,7 @@ import logging
 import asyncio
 import yaml
 import telegram
+import requests
 
 import aiogram.utils.markdown as fmt
 
@@ -71,6 +72,30 @@ async def on_location(message: types.Message):
     print(georesult)
 
     #await message.answer(f"Thank you for sharing your location! You are at {yourcity}).")
+
+
+@dp.message_handler(Text(contains="💰 Check your assets"))
+async def with_puree(message: types.Message):
+    await message.answer("Monies!")
+
+    def get_wallet_balance():
+        api_url = f"https://toncenter.com/api/v2/getAddressBalance?address="
+        try:
+            response = requests.get(api_url)
+            if response.status_code == 200:
+                balance = response.json().get("result")
+                return balance
+            else:
+                return None
+        except requests.RequestException as e:
+            print(f"Request failed: {str(e)}")
+            return None
+
+    balance = get_wallet_balance()
+    if balance is not None:
+        print(f"Your TON wallet balance is: {balance} TON")
+    else:
+        print("Failed to retrieve the wallet balance.")
 
 
 
