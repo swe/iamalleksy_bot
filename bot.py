@@ -29,9 +29,9 @@ greeting = message.from_user.first_name
 introBtns = [
     ["🎥 Rate new film/show"],
     ["📚 Rate new book"],
+    ["🌍 Add new location"],
     ["💰 Check your assets"],
     ["🌟 Update wishlist"],
-    ["🌍 Add new location"],
     ["💡 Add project idea"]
 ]
 intro_reply = ReplyKeyboardMarkup(introBtns, resize_keyboard=False, one_time_keyboard=True)
