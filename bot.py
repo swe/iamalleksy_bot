@@ -21,8 +21,17 @@ from functions/locationHandler import getlocationdata
 # from buttonsfunctions import buttonone, buttontwo
 # from functions/startMenu import coordinates2city
 
-# Put the token that you received from BotFather in the quotes
-bot = Bot(token="6640404904:AAHmpCvdf1MD1-uf_7QV05mRkMXmk8YhMzg")
+# Initializing secrets
+yaml_file = "/secrets.yaml"
+try:
+    with open(yaml_file, 'r') as file:
+        yaml_data = yaml.safe_load(file)
+
+    openCageAPI = yaml_data.get("iamalleksy_bot", {}).get("openCageAPI")
+    bot = Bot(token=yaml_data.get("iamalleksy_bot", {}).get("botToken"))
+
+except Exception as e:
+    print(f"An error occurred: {e}")
 
 # Initializing the dispatcher object
 dp = Dispatcher(bot)
@@ -84,9 +93,9 @@ async def with_puree(message: types.Message):
                 return balance
             else:
                 return None
-        except requests.RequestException as e:
-            print(f"Request failed: {str(e)}")
-            return None
+            except requests.RequestException as e:
+                    print(f"Request failed: {str(e)}")
+    return None
 
     balance = get_wallet_balance()
     if balance is not None:
@@ -96,6 +105,6 @@ async def with_puree(message: types.Message):
 
 
 
-# Starting the bot
-if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=True)
+        # Starting the bot
+        if __name__ == "__main__":
+            executor.start_polling(dp, skip_updates=True)
