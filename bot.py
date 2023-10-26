@@ -15,14 +15,23 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardMarkup, ParseMode
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 # from functions/locationHandler import cityJsonDecoder
-from test import getlocationdata
+from functions/locationHandler import getlocationdata
 
 # Additional functions of the bot
 # from buttonsfunctions import buttonone, buttontwo
-#from functions/startMenu import coordinates2city
+# from functions/startMenu import coordinates2city
 
-# Put the token that you received from BotFather in the quotes
-bot = Bot(token="")
+# Initializing secrets
+yaml_file = "/secrets.yaml"
+try:
+    with open(yaml_file, 'r') as file:
+        yaml_data = yaml.safe_load(file)
+
+    openCageAPI = yaml_data.get("iamalleksy_bot", {}).get("openCageAPI")
+    bot = Bot(token=yaml_data.get("iamalleksy_bot", {}).get("botToken"))
+
+except Exception as e:
+    print(f"An error occurred: {e}")
 
 # Initializing the dispatcher object
 dp = Dispatcher(bot)
