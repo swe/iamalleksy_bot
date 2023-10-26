@@ -6,6 +6,7 @@ import asyncio
 import yaml
 import telegram
 import requests
+import json
 
 import aiogram.utils.markdown as fmt
 
@@ -14,11 +15,11 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardMarkup, ParseMode
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from opencage.geocoder import OpenCageGeocode
-
+#from functions/locationHandler import cityJsonDecoder
 
 # Additional functions of the bot
 # from buttonsfunctions import buttonone, buttontwo
-# from startMenu import coordinates2city
+#from functions/startMenu import coordinates2city
 
 # Put the token that you received from BotFather in the quotes
 bot = Bot(token="")
@@ -69,9 +70,17 @@ async def on_location(message: types.Message):
     geocoder = OpenCageGeocode(cageapikey)
 
     georesult = geocoder.reverse_geocode(latitude, longitude)
-    print(georesult)
 
-    #await message.answer(f"Thank you for sharing your location! You are at {yourcity}).")
+    response = georesult.replace("'", '"')
+    response = json.loads(response)
+
+    for doc in response['components']:
+        print(doc['city'])
+        pipirka = doc['city']
+
+    # print(finalcity)
+
+    # await message.answer(f"Thank you for sharing your location! You are at {yourcity}).")
 
 
 @dp.message_handler(Text(contains="💰 Check your assets"))
