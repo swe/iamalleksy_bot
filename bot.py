@@ -14,8 +14,8 @@ from aiogram.dispatcher.filters import Text
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardMarkup, ParseMode
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
-from opencage.geocoder import OpenCageGeocode
-#from functions/locationHandler import cityJsonDecoder
+# from functions/locationHandler import cityJsonDecoder
+from test import getlocationdata
 
 # Additional functions of the bot
 # from buttonsfunctions import buttonone, buttontwo
@@ -62,23 +62,11 @@ async def with_puree(message: types.Message):
 
 @dp.message_handler(content_types=types.ContentTypes.LOCATION)
 async def on_location(message: types.Message):
-    location = message.location
-    latitude = location.latitude
-    longitude = location.longitude
+    # location = message.location
+    lat = message.location.latitude
+    lon = message.location.longitude
 
-    cageapikey = ""
-    geocoder = OpenCageGeocode(cageapikey)
-
-    georesult = geocoder.reverse_geocode(latitude, longitude)
-
-    response = georesult.replace("'", '"')
-    response = json.loads(response)
-
-    for doc in response['components']:
-        print(doc['city'])
-        pipirka = doc['city']
-
-    # print(finalcity)
+    getlocationdata(lat, lon)
 
     # await message.answer(f"Thank you for sharing your location! You are at {yourcity}).")
 
