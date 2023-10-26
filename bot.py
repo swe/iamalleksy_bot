@@ -55,7 +55,7 @@ async def with_puree(message: types.Message):
     LocationBtn = types.KeyboardButton("📍 Share Location", request_location=True)
     locationBtn.add(LocationBtn)
 
-    await message.answer("Wow! You a travelling somewhere!")
+    await message.answer("Wow! Are you travelling somewhere?")
     await message.answer("Please, share your new location, where you are now", reply_markup=locationBtn)
 
 
