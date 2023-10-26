@@ -1,3 +1,5 @@
 aiogram==2.25.1
 telegram==0.0.1
 python-telegram-bot==20.4
+pyyaml>=6.0.1
+opencage>=2.3.0
