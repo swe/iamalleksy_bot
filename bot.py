@@ -6,6 +6,7 @@ import asyncio
 import yaml
 import telegram
 import requests
+import json
 
 import aiogram.utils.markdown as fmt
 
@@ -13,15 +14,24 @@ from aiogram.dispatcher.filters import Text
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardMarkup, ParseMode
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
-from opencage.geocoder import OpenCageGeocode
-
+# from functions/locationHandler import cityJsonDecoder
+from functions/locationHandler import getlocationdata
 
 # Additional functions of the bot
 # from buttonsfunctions import buttonone, buttontwo
-# from startMenu import coordinates2city
+# from functions/startMenu import coordinates2city
 
-# Put the token that you received from BotFather in the quotes
-bot = Bot(token="")
+# Initializing secrets
+yaml_file = "/secrets.yaml"
+try:
+    with open(yaml_file, 'r') as file:
+        yaml_data = yaml.safe_load(file)
+
+    openCageAPI = yaml_data.get("iamalleksy_bot", {}).get("openCageAPI")
+    bot = Bot(token=yaml_data.get("iamalleksy_bot", {}).get("botToken"))
+
+except Exception as e:
+    print(f"An error occurred: {e}")
 
 # Initializing the dispatcher object
 dp = Dispatcher(bot)
@@ -61,17 +71,13 @@ async def with_puree(message: types.Message):
 
 @dp.message_handler(content_types=types.ContentTypes.LOCATION)
 async def on_location(message: types.Message):
-    location = message.location
-    latitude = location.latitude
-    longitude = location.longitude
+    # location = message.location
+    lat = message.location.latitude
+    lon = message.location.longitude
 
-    cageapikey = ""
-    geocoder = OpenCageGeocode(cageapikey)
+    getlocationdata(lat, lon)
 
-    georesult = geocoder.reverse_geocode(latitude, longitude)
-    print(georesult)
-
-    #await message.answer(f"Thank you for sharing your location! You are at {yourcity}).")
+    # await message.answer(f"Thank you for sharing your location! You are at {yourcity}).")
 
 
 @dp.message_handler(Text(contains="💰 Check your assets"))
@@ -87,9 +93,9 @@ async def with_puree(message: types.Message):
                 return balance
             else:
                 return None
-        except requests.RequestException as e:
-            print(f"Request failed: {str(e)}")
-            return None
+            except requests.RequestException as e:
+                    print(f"Request failed: {str(e)}")
+    return None
 
     balance = get_wallet_balance()
     if balance is not None:
@@ -99,6 +105,6 @@ async def with_puree(message: types.Message):
 
 
 
-# Starting the bot
-if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=True)
+        # Starting the bot
+        if __name__ == "__main__":
+            executor.start_polling(dp, skip_updates=True)
