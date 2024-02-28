@@ -1,11 +1,7 @@
 aiogram==2.25.1
 telegram==0.0.1
 python-telegram-bot==20.4
-<<<<<<< HEAD
 pyyaml>=6.0.1
-opencage>=2.3.0
-=======
+opencage>=2.4.0
 PyYAML~=6.0.1
-opencage~=2.4.0
 requests~=2.31.0
->>>>>>> ec933e7 (added tons of new features)
