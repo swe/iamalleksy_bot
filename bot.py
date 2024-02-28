@@ -101,11 +101,21 @@ async def on_location(message: types.Message):
                         glyphtext = ""
 
                         if continent == "Europe":
-                            map_color = "#FF0000"
+                            map_color = "#99BC85"
                         elif continent == "Africa":
-                            map_color = "#00FF00"
+                            map_color = "#F6F193"
+                        elif continent == "North America":
+                            map_color = "#DC8686"
+                        elif continent == "South America":
+                            map_color = "#BEADFA"
+                        elif continent == "Asia":
+                            map_color = "#96B6C5"
+                        elif continent == "Australia":
+                            map_color = "#9BABB8"
+                        elif continent == "Oceania":
+                            map_color = "#E9DAC1"
                         else:
-                            map_color = "#192c55"
+                            map_color = "#C1EFFF"
 
 
                         conn = psycopg2.connect(
